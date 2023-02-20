@@ -1,6 +1,7 @@
 package com.severett.micronautdemo.controller
 
 import com.severett.micronautdemo.dto.AuthorDTO
+import com.severett.micronautdemo.service.AuthorService
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
@@ -10,19 +11,21 @@ import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 
 @Controller("/authors")
-class AuthorController {
+class AuthorController(
+    private val authorService: AuthorService
+) {
     @Get(value = "/{id}", produces = [MediaType.APPLICATION_JSON])
-    fun getAuthor(@PathVariable id: Int): AuthorDTO {
-        return AuthorDTO("John", "Doe")
+    suspend fun getAuthor(@PathVariable id: Int): AuthorDTO {
+        return authorService.getAuthor(id)
     }
 
     @Post
-    fun saveAuthor(@Body authorDTO: AuthorDTO) {
-
+    suspend fun saveAuthor(@Body authorDTO: AuthorDTO) {
+        authorService.saveAuthor(authorDTO)
     }
 
     @Delete("/{id}")
-    fun deleteAuthor(@PathVariable id: Int) {
-
+    suspend fun deleteAuthor(@PathVariable id: Int) {
+        authorService.deleteAuthor(id)
     }
 }

@@ -24,6 +24,7 @@ dependencies {
     //// Production
     // Implementation
     implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation(kotlin("reflect"))
     //TODO Remove when upgrading Micronaut to 4.0
     kapt("io.micronaut:micronaut-inject-java")
