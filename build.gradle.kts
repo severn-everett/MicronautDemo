@@ -2,7 +2,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.10"
+    val kotlinVersion = "1.8.10"
+    kotlin("jvm") version kotlinVersion
+    //TODO Remove when upgrading Micronaut to 4.0
+    kotlin("kapt") version kotlinVersion
     id("io.micronaut.application") version "3.7.2"
 }
 
@@ -21,6 +24,9 @@ dependencies {
     //// Production
     // Implementation
     implementation("io.micronaut:micronaut-http-server-netty")
+    implementation(kotlin("reflect"))
+    //TODO Remove when upgrading Micronaut to 4.0
+    kapt("io.micronaut:micronaut-inject-java")
     // Runtime-Only
     runtimeOnly("ch.qos.logback:logback-classic")
     //// Testing
