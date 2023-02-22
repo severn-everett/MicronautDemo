@@ -4,7 +4,9 @@ import com.severett.micronautdemo.model.Author
 import io.micronaut.transaction.annotation.ReadOnly
 import jakarta.inject.Singleton
 import javax.persistence.EntityManager
+import javax.transaction.Transactional
 
+@Suppress("MnInjectionPoints")
 @Singleton
 open class AuthorRepoImpl(
     private val entityManager: EntityManager
@@ -14,11 +16,13 @@ open class AuthorRepoImpl(
         return entityManager.find(Author::class.java, id)
     }
 
+    @Transactional
     override fun save(author: Author) {
-        TODO("Not yet implemented")
+        entityManager.persist(author)
     }
 
+    @Transactional
     override fun deleteById(id: Int) {
-        TODO("Not yet implemented")
+        findById(id)?.let(entityManager::remove)
     }
 }

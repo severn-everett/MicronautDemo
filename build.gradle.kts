@@ -26,13 +26,12 @@ dependencies {
     //// Production
     // Implementation
     implementation("io.micronaut:micronaut-http-server-netty")
-    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("jakarta.persistence:jakarta.persistence-api:2.2.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation(kotlin("reflect"))
     //TODO Remove when upgrading Micronaut to 4.0
     kapt("io.micronaut:micronaut-inject-java")
-    annotationProcessor("io.micronaut.data:micronaut-data-hibernate-jpa")
     // Runtime-Only
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.h2database:h2")

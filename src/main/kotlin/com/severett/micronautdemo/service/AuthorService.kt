@@ -1,6 +1,7 @@
 package com.severett.micronautdemo.service
 
 import com.severett.micronautdemo.dto.AuthorDTO
+import com.severett.micronautdemo.model.Author
 import com.severett.micronautdemo.repo.AuthorRepo
 import jakarta.inject.Singleton
 import kotlinx.coroutines.Dispatchers
@@ -18,13 +19,13 @@ class AuthorService(private val authorRepo: AuthorRepo) {
 
     suspend fun saveAuthor(authorDTO: AuthorDTO) {
         withContext(Dispatchers.IO) {
-
+            authorRepo.save(Author(firstName = authorDTO.firstName, lastName = authorDTO.lastName))
         }
     }
 
     suspend fun deleteAuthor(id: Int) {
         withContext(Dispatchers.IO) {
-
+            authorRepo.deleteById(id)
         }
     }
 }
