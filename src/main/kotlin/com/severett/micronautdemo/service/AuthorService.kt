@@ -1,15 +1,18 @@
 package com.severett.micronautdemo.service
 
 import com.severett.micronautdemo.dto.AuthorDTO
-import io.micronaut.context.annotation.Bean
+import com.severett.micronautdemo.repo.AuthorRepo
+import jakarta.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.persistence.EntityNotFoundException
 
-@Bean
-class AuthorService {
+@Singleton
+class AuthorService(private val authorRepo: AuthorRepo) {
     suspend fun getAuthor(id: Int): AuthorDTO {
         return withContext(Dispatchers.IO) {
-            AuthorDTO("John", "Doe")
+            authorRepo.findById(id)?.let { AuthorDTO(firstName = it.firstName, lastName = it.lastName) }
+                ?: throw EntityNotFoundException("No author found with id #$id")
         }
     }
 

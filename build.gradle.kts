@@ -4,6 +4,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     val kotlinVersion = "1.8.10"
     kotlin("jvm") version kotlinVersion
+    kotlin("plugin.allopen") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
     //TODO Remove when upgrading Micronaut to 4.0
     kotlin("kapt") version kotlinVersion
     id("io.micronaut.application") version "3.7.2"
@@ -24,12 +26,18 @@ dependencies {
     //// Production
     // Implementation
     implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    implementation("jakarta.persistence:jakarta.persistence-api:2.2.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation(kotlin("reflect"))
     //TODO Remove when upgrading Micronaut to 4.0
     kapt("io.micronaut:micronaut-inject-java")
+    annotationProcessor("io.micronaut.data:micronaut-data-hibernate-jpa")
     // Runtime-Only
     runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("com.h2database:h2")
+    runtimeOnly("io.micronaut.flyway:micronaut-flyway:5.4.1")
+    runtimeOnly("io.micronaut.sql:micronaut-jdbc-hikari")
     //// Testing
     testImplementation(kotlin("test"))
 }
