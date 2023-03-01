@@ -8,14 +8,15 @@ import javax.transaction.Transactional
 
 @Suppress("MnInjectionPoints")
 @Singleton
-open class AuthorRepoImpl(
-    private val entityManager: EntityManager
-) : AuthorRepo {
+open class AuthorRepoImpl(private val entityManager: EntityManager) : AuthorRepo {
     @ReadOnly
     override fun findById(id: Int): Author? {
         return entityManager.find(Author::class.java, id)
     }
-
+    @ReadOnly
+    override fun getReference(id: Int): Author {
+        return entityManager.getReference(Author::class.java, id)
+    }
     @Transactional
     override fun save(author: Author) {
         entityManager.persist(author)

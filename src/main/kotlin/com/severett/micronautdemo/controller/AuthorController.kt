@@ -11,9 +11,7 @@ import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 
 @Controller("/authors")
-class AuthorController(
-    private val authorService: AuthorService
-) {
+class AuthorController(private val authorService: AuthorService) {
     @Get(value = "/{id}", produces = [MediaType.APPLICATION_JSON])
     suspend fun getAuthor(@PathVariable id: Int): AuthorDTO {
         return authorService.getAuthor(id)
